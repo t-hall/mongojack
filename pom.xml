@@ -404,9 +404,9 @@
         <!--</profile>-->
     <!--</profiles>-->
     <scm>
-        <url>https://github.com/t-hall/mongojack</url>
-        <connection>scm:git://github.com/mongojack/mongojack.git</connection>
-        <developerConnection>scm:git:git@github.com:mongojack/mongojack.git</developerConnection>
+        <url>scm:git:git@github.com:t-hall/mongojack.git</url>
+        <connection>scm:git:git@github.com:t-hall/mongojack.git</connection>
+        <developerConnection>scm:git:git@github.com:t-hall/mongojack.git</developerConnection>
     </scm>
 
     <!--<distributionManagement>-->
