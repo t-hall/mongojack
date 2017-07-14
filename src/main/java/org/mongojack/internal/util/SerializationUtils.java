@@ -362,7 +362,7 @@ public class SerializationUtils {
 
                     JsonSerializer<?> fieldSerializer = findUpdateSerializer(field
                             .getValue().isTargetCollection(), field.getKey(),
-                        serializerProvider, serializer, objectMapper.getTypeFactory(), field.getValue().getValue().getClass());
+                        serializerProvider, serializer, objectMapper.getTypeFactory(), getFieldValueValueClass(field));
                     if (fieldSerializer != null) {
                         value = serializeUpdateField(field.getValue(),
                             fieldSerializer, serializerProvider,
@@ -387,6 +387,13 @@ public class SerializationUtils {
             dbObject.append(op.getKey(), opObject);
         }
         return dbObject;
+    }
+
+    private static Class<?> getFieldValueValueClass(Map.Entry<String, UpdateOperationValue> field) {
+        if (field.getValue() != null && field.getValue().getValue() != null) {
+            return field.getValue().getValue().getClass();
+        }
+        return null;
     }
 
     private static Object serializeUpdateField(UpdateOperationValue value,
@@ -463,7 +470,7 @@ public class SerializationUtils {
                         if (fieldSerializer == null) {
                             JavaType writerType = writer.getType();
                             JavaType valueType  = writerType;
-                            if (writerType.getRawClass().isAssignableFrom(valueClass)) {
+                            if (valueClass != null && writerType.getRawClass().isAssignableFrom(valueClass)) {
                                 valueType = typeFactory.constructSpecializedType(writerType,  valueClass);
                             }
 
